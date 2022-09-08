@@ -137,3 +137,7 @@ if __name__ == '__main__':
     finish_time = time.time()
     sim_time = finish_time - start_time
     print("Total sim time: {} min and{} secs".format(round(sim_time/60, 0), round(sim_time % 60, 2)))
+
+    # Zipping the created log directory
+    shutil.make_archive(log_dir, 'zip', log_dir)
+    shutil.rmtree(log_dir)
