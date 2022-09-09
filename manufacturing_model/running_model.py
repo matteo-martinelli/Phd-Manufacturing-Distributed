@@ -12,6 +12,7 @@ the comma level.
 # TODO: manage this file as a class with a main section as program entry point.
 # TODO: add sim-parameters.txt file automatic saving at the end of each sim run. >>> DONE
 
+
 import time
 import simpy
 import os
@@ -139,5 +140,5 @@ if __name__ == '__main__':
     print("Total sim time: {} min and{} secs".format(round(sim_time/60, 0), round(sim_time % 60, 2)))
 
     # Zipping the created log directory
-    shutil.make_archive(log_dir, 'zip', log_dir)
+    shutil.make_archive(log_dir, 'bztar', log_dir)
     shutil.rmtree(log_dir)
