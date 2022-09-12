@@ -31,7 +31,7 @@ if __name__ == '__main__':
     start_time_string = time.strftime('%Y.%m.%d-%H.%M')
 
     # Creating the new log directory name
-    log_dir = 'logs\\' + start_time_string + '-log'
+    log_dir = 'logs\\' + start_time_string
     # Creating the relative new log directory
     os.mkdir(log_dir)
     # Copying the running variables to the new directory
@@ -140,5 +140,5 @@ if __name__ == '__main__':
     print("Total sim time: {} min and{} secs".format(round(sim_time/60, 0), round(sim_time % 60, 2)))
 
     # Zipping the created log directory
-    shutil.make_archive(log_dir, 'bztar', log_dir)
-    shutil.rmtree(log_dir)
+    shutil.make_archive(log_dir, 'zip', log_dir)
+    shutil.move(log_dir, 'archive\\' + log_dir)
