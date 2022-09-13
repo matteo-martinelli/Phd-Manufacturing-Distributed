@@ -153,3 +153,4 @@ cython_debug/
 
 ### MY IGNORE ###
 manufacturing_model/archive/logs/*
+causal_model/dataset/*
