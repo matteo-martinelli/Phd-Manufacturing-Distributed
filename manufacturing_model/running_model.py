@@ -30,6 +30,24 @@ if __name__ == '__main__':
     start_time = time.time()
     start_time_string = time.strftime('%Y.%m.%d-%H.%M')
 
+    # Moving the lastly created directory into the archive and zipping it
+    try:
+        # Getting the dir
+        dir_to_move = os.listdir('logs\\')[0]
+        print(dir_to_move)
+        # Zipping it
+        print('Start zipping')
+        zip_dir_to_move = shutil.make_archive(base_name=dir_to_move, format='zip')
+        print('Zipped!')
+        # Moving the resulting directory in the logs folder
+        zip_dest = shutil.move(zip_dir_to_move, 'archive\\logs\\' + zip_dir_to_move)
+        # Removing the zipped and moved directory from the logs folder
+        shutil.rmtree('logs\\' + dir_to_move)
+        print('Existing log dir moved in ' + zip_dest)
+        pass
+    except Exception:
+        print('No folder found, continuing with the simulation')
+
     # Creating the new log directory name
     log_dir = 'logs\\' + start_time_string
     # Creating the relative new log directory
@@ -138,6 +156,8 @@ if __name__ == '__main__':
     finish_time = time.time()
     sim_time = finish_time - start_time
     print("Total sim time: {} min and{} secs".format(round(sim_time/60, 0), round(sim_time % 60, 2)))
+
+
 
     # Zipping the created log directory
     shutil.make_archive(log_dir, 'zip', log_dir)
