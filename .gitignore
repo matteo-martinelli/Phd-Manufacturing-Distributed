@@ -152,5 +152,5 @@ cython_debug/
 .idea/
 
 ### MY IGNORE ###
-manufacturing_model/archive/logs/*
+manufacturing_model/logs/*
 causal_model/dataset/*
