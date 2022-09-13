@@ -14,16 +14,16 @@ Simulation parameters are stored in "/manufacturing_model/Model Base Settings.tx
 At each run, the setting file is saved in the associated Log folder. 
 
 Log folders are divided in:
-- "/manufacturing_model/archive/logs", where generated files are stored;
-- and "/manufacturing_model/logs" where the generated files are zipped. 
+- "/manufacturing_model/logs", where generated files are stored;
+- and "/manufacturing_model/archive/logs" where the generated files are zipped. 
 
 The two aforementioned folders are completely identical in their contents. The distinction has been made in order to 
 facilitate the GitHub uploading and sync.
 
 When the simulation is finished, the project Jupyter Notebook is opened. Inside, the code handles the necessary files 
-and moves the newest dataset from "/manufacturing_model/logs/" to "causal_model/dataset/" folder. Here, if none, a new 
-folder is generated, zip file is moved and unzipped, then data is used in order to train the causal network representing 
-the manufacturing model.
+and moves the newest dataset from "/manufacturing_model/logs/" to "causal_model/dataset/" folder. Here, the last 
+causal_model run is deleted, a new folder is generated, then data is used in order to train the causal network 
+representing the manufacturing model.
 
 Further information about the experiment available here: 
 *link to the paper
