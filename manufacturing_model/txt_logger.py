@@ -12,7 +12,7 @@ class TxtLogger(object):
     def __init__(self, txt_log_path, txt_log_filename):
         self.txt_log_path = txt_log_path
         self.txt_log_filename = txt_log_filename
-        self.complete_txt_filename = self.txt_log_path + "\\" + self.txt_log_filename
+        self.complete_txt_filename = os.path.join(self.txt_log_path + "/" + self.txt_log_filename)
 
         self._initialise_txt_log_file()
 

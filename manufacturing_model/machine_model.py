@@ -96,9 +96,9 @@ class Machine(object):
 
         # Logging objects
         # Creating the folder that contains the i-th machine log
-        os.mkdir(log_path + '\\Machine_' + self._name.split(" ")[1])
+        os.mkdir(log_path + os.path.join('/Machine_') + self._name.split(" ")[1])
         # Creating the local log path that will be used with log_path that represents the global log path.
-        local_log_path = log_path + '\\Machine_' + self._name.split(" ")[1]
+        local_log_path = log_path + os.path.join('/Machine_') + self._name.split(" ")[1]
         # Creating logging objects
         self.global_txt_logger = TxtLogger(log_path, GlobalVariables.LOG_FILENAME)
         self.local_txt_logger = TxtLogger(local_log_path, self._name + " log.txt")

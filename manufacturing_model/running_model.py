@@ -33,30 +33,31 @@ if __name__ == '__main__':
     # Moving the lastly created directory into the archive and zipping it
     try:
         # Getting the dir
-        dir_to_move = os.listdir('logs\\')[0]
+        dir_to_move = os.listdir(os.path.join('logs/'))[0]
+        #dir_to_move = os.listdir('logs\\')[0]
         print(dir_to_move)
         # Zipping it
         print('Start zipping')
         zip_dir_to_move = shutil.make_archive(base_name=dir_to_move, format='zip')
         print('Zipped!')
         # Moving the resulting directory in the logs folder
-        zip_dest = shutil.move(zip_dir_to_move, 'archive\\logs\\' + zip_dir_to_move)
+        zip_dest = shutil.move(zip_dir_to_move, os.path.join('archive/logs/') + zip_dir_to_move)
         # Removing the zipped and moved directory from the logs folder
-        shutil.rmtree('logs\\' + dir_to_move)
+        shutil.rmtree(os.path.join('logs/') + dir_to_move)
         print('Existing log dir moved in ' + zip_dest)
         pass
     except Exception:
         print('No folder found, continuing with the simulation')
 
     # Creating the new log directory name
-    log_dir = 'logs/' + start_time_string
+    log_dir = os.path.join('logs/') + start_time_string
     # Creating the relative new log directory
     os.mkdir(log_dir)
     # Copying the running variables to the new directory
     shutil.copy(src='global_variables.py', dst=log_dir)
     # Renaming the running variables filename in txt format
     # pre, ext = os.path.splitext(log_dir + '\\global_variables.py')
-    os.rename(log_dir + '/global_variables.py', log_dir + 'sim-variables' + '.txt')
+    os.rename(log_dir + os.path.join('/global_variables.py'), log_dir + os.path.join('/sim-variables') + '.txt')
 
     # ENVIRONMENT DEFINITION -------------------------------------------------------------------------------------------
     env = simpy.Environment()
@@ -157,8 +158,6 @@ if __name__ == '__main__':
     sim_time = finish_time - start_time
     print("Total sim time: {} min and{} secs".format(round(sim_time/60, 0), round(sim_time % 60, 2)))
 
-
-
     # Zipping the created log directory
-    shutil.make_archive(log_dir, 'zip', log_dir)
-    shutil.move(log_dir, 'archive\\' + log_dir)
+    #shutil.make_archive(log_dir, 'zip', log_dir)
+    #shutil.move(log_dir, os.path.join('archive/') + log_dir)

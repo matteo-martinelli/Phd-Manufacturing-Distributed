@@ -13,7 +13,7 @@ class CsvLogger(object):
         self._csv_log_path = csv_log_path
         self._csv_log_filename = csv_log_filename
 
-        self._complete_csv_filename = self._csv_log_path + "\\" + self._csv_log_filename
+        self._complete_csv_filename = os.path.join(self._csv_log_path + "/" + self._csv_log_filename)
 
         self._heading = self._csv_log_filename.split("log.")[0].strip()
 

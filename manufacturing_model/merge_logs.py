@@ -24,17 +24,17 @@ class MergeLogs(object):
     def merge_logs(input_path, output_path, output_name, *args):
         # Initializing the merged_logs.csv file.
         try:
-            os.remove(output_path + "\\" + output_name)
+            os.remove(os.path.join(output_path + "/" + output_name))
         except FileNotFoundError:
             print("The log file has not been found in the directory, creating a new one.")
-            with open(output_path + "\\" + output_name, "w") as f:
+            with open(os.path.join(output_path + "/" + output_name), "w") as f:
                 f.close()
 
         # Creating a list as a buffer to temporally save the data read from the CSVs files.
         df_list = list()
         # Appending the data in the list read from the CSVs files.
         for arg in args:
-            df = pandas.read_csv(input_path + "\\" + arg)
+            df = pandas.read_csv(os.path.join(input_path + "/" + arg))
             df_list.append(df)
 
         # Merging the first two dataframes.
@@ -56,7 +56,7 @@ class MergeLogs(object):
         # Converting all the data into int comprised Trues and Falses
         df_merge.iloc[:, 1:] = df_merge.iloc[:, 1:].astype('Int64')
         # Saving the merged dataframe into a csv file.
-        df_merge.to_csv(output_path + "\\" + output_name, index=False)
+        df_merge.to_csv(os.path.join(output_path + '/' + output_name), index=False)
 
 
 # File Main entry point.
@@ -81,8 +81,8 @@ if __name__ == '__main__':
     target_folder = folder_list[target_index]
 
     # Create a new folder inside it for merged logs
-    raw_log_path = 'logs\\' + target_folder
-    merged_log_path = 'logs\\' + target_folder + '\\merged_logs'   # Relative path
+    raw_log_path = os.path.join('logs/' + target_folder)
+    merged_log_path = os.path.join('logs/' + target_folder + '/merged_logs')   # Relative path
     os.mkdir(merged_log_path)
 
     # Get all the Machine_x.csv files in the folder
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     log_merger = MergeLogs()
     for component in folder_list:
         # For each group of file, operate a merge over the flags.
-        in_path = raw_log_path + '\\' + component
+        in_path = os.path.join(raw_log_path + '/' + component)
         out_path = merged_log_path
         out_file = component + '.csv'
         merge_file_1 = component.split('_')[0] + ' ' + component.split('_')[1] + ' log.csv'
@@ -110,16 +110,17 @@ if __name__ == '__main__':
     # Merging into 1.
     log_merger.merge_logs(merged_log_path, merged_log_path, "merged_logs.csv", *file_list)
 
+    #TODO: check if the following code is really needed with respect to recent changes.
     # Creating a folder with the same naming structure in the Colab project folder
-    os.mkdir('C:\\Users\\wmatt\\Desktop\\GDrive\\Colab Notebooks\\My Notebooks\\PhD Notebooks\\'
-             'Colab-Manufacturing-Model-Learning\\Causal-Manufacturing-Learning-v1\\dataset\\' + target_folder)
+    os.mkdir(os.path.join('C:/Users/wmatt/Desktop/GDrive/Colab Notebooks/My Notebooks/PhD Notebooks/'
+             'Colab-Manufacturing-Model-Learning/Causal-Manufacturing-Learning-v1/dataset/' + target_folder))
 
     # Moving merged_logs.csv file in the twin Colab project folder
-    shutil.copy(src=merged_log_path + '\\merged_logs.csv', dst='C:\\Users\\wmatt\\Desktop\\GDrive\\Colab Notebooks\\'
-                'My Notebooks\\PhD Notebooks\\Colab-Manufacturing-Model-Learning\\Causal-Manufacturing-Learning-v1\\'
-                'dataset\\' + target_folder)
+    shutil.copy(src=merged_log_path + os.path.join('/merged_logs.csv'), dst=os.path.join('C/Users/wmatt/Desktop/GDrive/'
+                'Colab Notebooks/My Notebooks/PhD Notebooks/Colab-Manufacturing-Model-Learning/'
+                'Causal-Manufacturing-Learning-v1/dataset/' + target_folder))
 
     # Moving associate sim-variables.txt file in the twin Colab project folder
-    shutil.copy(src=raw_log_path + '\\sim-variables.txt', dst='C:\\Users\\wmatt\\Desktop\\GDrive\\Colab Notebooks\\'
-                'My Notebooks\\PhD Notebooks\\Colab-Manufacturing-Model-Learning\\Causal-Manufacturing-Learning-v1\\'
-                'dataset\\' + target_folder)
+    shutil.copy(src=raw_log_path + os.path.join('/sim-variables.txt'), dst=os.path.join('C:/Users/wmatt/Desktop/GDrive/'
+                'Colab Notebooks/My Notebooks/PhD Notebooks/Colab-Manufacturing-Model-Learning/'
+                'Causal-Manufacturing-Learning-v1/dataset/' + target_folder))
