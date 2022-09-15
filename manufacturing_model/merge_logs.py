@@ -65,6 +65,7 @@ if __name__ == '__main__':
     folder_list = os.listdir('logs')
     # print(folder_list)
 
+    # TODO: refactor here. The subfolder structure has changed, accord it.
     # Considering only sub-folders with the last word as "log"
     folder_list = [x for x in folder_list if x.split('-')[2] == 'log']
     # print(folder_list)
