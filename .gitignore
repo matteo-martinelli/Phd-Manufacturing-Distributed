@@ -152,5 +152,12 @@ cython_debug/
 .idea/
 
 ### MY IGNORE ###
-manufacturing_model/logs/
-causal_model/dataset/
+# exclude manufacturing_model/logs content
+manufacturing_model/logs/*
+
+# exclude causal_model/dataset content
+causal_model/dataset/*
+
+# exception to the rule
+!causal_model/dataset/.gitkeep
+!manufacturing_model/logs/.gitkeep
