@@ -45,14 +45,14 @@ if __name__ == '__main__':
         # Removing the zipped and moved directory from the logs folder
         shutil.rmtree(os.path.join('logs/') + dir_to_move)
         print('Existing log dir moved in ' + zip_dest)
-        pass
     except Exception:
         print('No folder found, continuing with the simulation')
 
     # Creating the new log directory name
     log_dir = os.path.join('logs/') + start_time_string
     # Creating the relative new log directory
-    os.mkdir(log_dir)
+    #os.mkdir(log_dir)
+    os.makedirs(log_dir)
     # Copying the running variables to the new directory
     shutil.copy(src='global_variables.py', dst=log_dir)
     # Renaming the running variables filename in txt format
