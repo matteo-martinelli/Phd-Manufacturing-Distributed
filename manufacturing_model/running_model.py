@@ -33,7 +33,12 @@ if __name__ == '__main__':
     # Moving the lastly created directory into the archive and zipping it
     try:
         # Getting the dir
-        dir_to_move = os.listdir(os.path.join('logs/'))[0]
+        dir_list = os.listdir(os.path.join('logs/'))
+        for i in range(len(dir_list)):
+            if dir_list[i].startswith('.'):
+                continue
+            else:
+                dir_to_move = dir_list[i]
         #dir_to_move = os.listdir('logs\\')[0]
         print(dir_to_move)
         # Zipping it
@@ -49,7 +54,7 @@ if __name__ == '__main__':
         print('No folder found, continuing with the simulation')
 
     # Creating the new log directory name
-    log_dir = os.path.join('logs/') + start_time_string
+    log_dir = os.path.join('logs/') + start_time_string + '-log'
     # Creating the relative new log directory
     #os.mkdir(log_dir)
     os.makedirs(log_dir)
