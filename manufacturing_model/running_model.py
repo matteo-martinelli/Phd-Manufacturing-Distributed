@@ -39,30 +39,29 @@ if __name__ == '__main__':
                 continue
             else:
                 dir_to_move = dir_list[i]
-        #dir_to_move = os.listdir('logs\\')[0]
-        print(dir_to_move)
+
         # Zipping it
         print('Start zipping')
-        zip_dir_to_move = shutil.make_archive(base_name=dir_to_move, format='zip')
+        zip_dir_to_move = shutil.make_archive(base_name=dir_to_move, format='zip',
+                                              root_dir=os.path.join('logs/' + dir_to_move))
         print('Zipped!')
-        # Moving the resulting directory in the logs folder
-        zip_dest = shutil.move(zip_dir_to_move, os.path.join('archive/logs/') + zip_dir_to_move)
+
+        # Moving the resulting zip in the logs folder
+        zip_dest = shutil.move(os.path.join(dir_to_move + '.zip'), os.path.join('archive/logs/' + dir_to_move + '.zip'))
         # Removing the zipped and moved directory from the logs folder
-        shutil.rmtree(os.path.join('logs/') + dir_to_move)
+        shutil.rmtree(os.path.join('logs/' + dir_to_move))
         print('Existing log dir moved in ' + zip_dest)
     except Exception:
         print('No folder found, continuing with the simulation')
 
     # Creating the new log directory name
-    log_dir = os.path.join('logs/') + start_time_string + '-log'
+    log_dir = os.path.join('logs/'+ start_time_string ) #+ '-log'
     # Creating the relative new log directory
-    #os.mkdir(log_dir)
     os.makedirs(log_dir)
     # Copying the running variables to the new directory
     shutil.copy(src='global_variables.py', dst=log_dir)
     # Renaming the running variables filename in txt format
-    # pre, ext = os.path.splitext(log_dir + '\\global_variables.py')
-    os.rename(log_dir + os.path.join('/global_variables.py'), log_dir + os.path.join('/sim-variables') + '.txt')
+    os.rename(os.path.join(log_dir + '/global_variables.py'), os.path.join(log_dir + '/sim-variables') + '.txt')
 
     # ENVIRONMENT DEFINITION -------------------------------------------------------------------------------------------
     env = simpy.Environment()
@@ -115,7 +114,6 @@ if __name__ == '__main__':
                         GlobalVariables.SIGMA_PROCESS_TIME_B, GlobalVariables.MTTF_B, GlobalVariables.MTTR_B, input_B,
                         output_B)
 
-    # Maybe **args and **kwargs could help here? -> Implement in the next version of the sw.
     # Moving from output A&B to input C
     output_containers = list()
     output_containers.append(output_A)
@@ -162,7 +160,3 @@ if __name__ == '__main__':
     finish_time = time.time()
     sim_time = finish_time - start_time
     print("Total sim time: {} min and{} secs".format(round(sim_time/60, 0), round(sim_time % 60, 2)))
-
-    # Zipping the created log directory
-    #shutil.make_archive(log_dir, 'zip', log_dir)
-    #shutil.move(log_dir, os.path.join('archive/') + log_dir)

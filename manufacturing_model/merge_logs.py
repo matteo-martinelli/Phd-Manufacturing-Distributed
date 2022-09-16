@@ -14,9 +14,6 @@ a full-outer-join.
 
 import os
 import pandas
-import time
-import datetime
-import shutil
 
 
 class MergeLogs(object):
@@ -63,23 +60,9 @@ class MergeLogs(object):
 if __name__ == '__main__':
     # Get all the log sub-folders
     folder_list = os.listdir('logs')
-    # print(folder_list)
 
-    # TODO: refactor here. The subfolder structure has changed, accord it.
     # Considering only sub-folders with the last word as "log"
-    folder_list = [x for x in folder_list if x.split('-')[2] == 'log']
-    # print(folder_list)
-
-    # Converting all the folder names from %Y.%m.%d-%H.%M format to timestamp format. The output is stored in a
-    # separated list, "timestamp_list"
-    timestamp_list = [time.mktime(datetime.datetime.strptime(x[:-4], '%Y.%m.%d-%H.%M').timetuple()) for x in
-                      folder_list]
-
-    # Getting the index of the maximum timestamp, which represents the last folder created
-    target_index = timestamp_list.index(max(timestamp_list))
-
-    # Get that last folder created with the got index as input
-    target_folder = folder_list[target_index]
+    target_folder = [x for x in folder_list if x.startswith('.') != True][0]
 
     # Create a new folder inside it for merged logs
     raw_log_path = os.path.join('logs/' + target_folder)
@@ -88,11 +71,9 @@ if __name__ == '__main__':
 
     # Get all the Machine_x.csv files in the folder
     folder_list = os.listdir(raw_log_path)
-    # print(folder_list)
 
     # Select the keys to iterate
     folder_list = [x for x in folder_list if '.' not in x and 'Machine' in x]
-    # print(folder_list)
 
     # Iter in the Machine file list
     log_merger = MergeLogs()
@@ -110,18 +91,3 @@ if __name__ == '__main__':
 
     # Merging into 1.
     log_merger.merge_logs(merged_log_path, merged_log_path, "merged_logs.csv", *file_list)
-
-    #TODO: check if the following code is really needed with respect to recent changes.
-    # Creating a folder with the same naming structure in the Colab project folder
-    os.mkdir(os.path.join('C:/Users/wmatt/Desktop/GDrive/Colab Notebooks/My Notebooks/PhD Notebooks/'
-             'Colab-Manufacturing-Model-Learning/Causal-Manufacturing-Learning-v1/dataset/' + target_folder))
-
-    # Moving merged_logs.csv file in the twin Colab project folder
-    shutil.copy(src=merged_log_path + os.path.join('/merged_logs.csv'), dst=os.path.join('C/Users/wmatt/Desktop/GDrive/'
-                'Colab Notebooks/My Notebooks/PhD Notebooks/Colab-Manufacturing-Model-Learning/'
-                'Causal-Manufacturing-Learning-v1/dataset/' + target_folder))
-
-    # Moving associate sim-variables.txt file in the twin Colab project folder
-    shutil.copy(src=raw_log_path + os.path.join('/sim-variables.txt'), dst=os.path.join('C:/Users/wmatt/Desktop/GDrive/'
-                'Colab Notebooks/My Notebooks/PhD Notebooks/Colab-Manufacturing-Model-Learning/'
-                'Causal-Manufacturing-Learning-v1/dataset/' + target_folder))
