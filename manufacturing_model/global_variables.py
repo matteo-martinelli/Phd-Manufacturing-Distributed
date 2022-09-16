@@ -10,8 +10,6 @@ class GlobalVariables(object):
 
     # NOTE: Containers critical levels
     # Critical stock should be 1 business day greater than supplier take to come
-    # wood_critical_stock = (((8/mean_A) * num_A + (8/mean_B) * num_B) * 3)  # 2 days to deliver + 1 marging
-    # electronic_critical_stock = (8/mean_assembly) * num_assembly * 2  # 1 day to deliver + 1 marging
 
     # 1.Node A Raw Container
     CONTAINER_A_RAW_CAPACITY = 500

@@ -60,7 +60,6 @@ class Machine(object):
     def __init__(self, env, name, log_path, mean_process_time, sigma_process_time, MTTF, MTTR, input_buffer,
                  output_buffer):
         self.env = env
-        # TODO: add machine_naming_coding check.
         self._name = name                       # Must be coded as "Machine" + identifying letter from A to Z
 
         # Process variables.
