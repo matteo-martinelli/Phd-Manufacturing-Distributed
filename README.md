@@ -1,7 +1,7 @@
 # Phd-Manufacturing-Distributed
 Shared repository for experiment reproduction.
 
-Needed Python packages are stored in the "requirements.txt" file.
+Needed Python packages are stored in the "requirements.txt" file. Requires Python3.8 for packages compatibility.
 
 To start the simulation, run the following files:
 - "run_me.bat" for Windows;
