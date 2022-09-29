@@ -160,5 +160,4 @@ causal_model/dataset/*
 
 # exception to the rule
 !causal_model/dataset/.gitkeep
-!causal_model/dataset/2022.03.14-11.54
 !manufacturing_model/logs/.gitkeep
