@@ -1,4 +1,4 @@
-# Phd-Manufacturing-Distributed
+# Enabling Causality with Digital Twins
 Shared repository for experiment reproduction.
 
 Needed Python packages are stored in the "requirements.txt" file. Requires Python3.8 for packages compatibility.
