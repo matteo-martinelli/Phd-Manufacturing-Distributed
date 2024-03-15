@@ -44,6 +44,3 @@ When the simulation is finished, the project Jupyter Notebook is opened. Inside,
 and moves the newest dataset from "/manufacturing_model/logs/" to "causal_model/dataset/" folder. Here, the last 
 causal_model run is deleted, a new folder is generated, then data is used in order to train the causal network 
 representing the manufacturing model.
-
-Further information about the experiment available here: 
-*link to the paper
